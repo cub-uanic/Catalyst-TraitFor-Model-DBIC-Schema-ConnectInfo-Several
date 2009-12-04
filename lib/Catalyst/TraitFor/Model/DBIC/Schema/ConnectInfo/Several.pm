@@ -1,98 +1,101 @@
 package Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several;
 
-use warnings;
-use strict;
-
-=head1 NAME
-
-Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several - The great new Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several!
-
-=head1 VERSION
-
-Version 0.01
-
-=cut
+use namespace::autoclean;
+use Moose::Role;
+use Catalyst::Model::DBIC::Schema::Types qw/ ConnectInfo /;
+use MooseX::Types -declare => [qw/ SeveralConnectInfo /];
+use MooseX::Types::Moose qw/ HashRef /;
 
 our $VERSION = '0.01';
 
+=head1 NAME
+
+Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several - support
+for several C<connect_info> entries.
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+    package MyApp::Model::DB;
 
-Perhaps a little code snippet.
+    use Moose;
+    use namespace::autoclean;
+    extends 'Catalyst::Model::DBIC::Schema';
 
-    use Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several;
+    __PACKAGE__->config(
+        {
+            traits            => ['ConnectInfo::Several'],
+            schema_class      => 'MyApp::Schema',
+            connect_info      => {
+                active_connection => 'mysql_devel',
+                mysql_devel       => [ 'dbi:mysql:db_devel', 'user1', 'pass1' ],
+                mysql_production  => [ 'dbi:mysql:db_prod',  'user2', 'pass2' ],
+            },
+        }
+    );
 
-    my $foo = Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several->new();
-    ...
+    #
+    # or in application config
+    #
+    <Model::DB>
+        <connect_info>
+            active_connection   mysql_devel
+            <mysql_devel>
+                dns             dbi:mysql:db_devel
+                user            user1
+                password        pass1
+            </mysql_devel>
+            <mysql_prod>
+                dns             dbi:mysql:db_prod
+                user            user2
+                password        pass2
+            </mysql_prod>
+        </connect_info>
+    </Model::DB>
 
-=head1 EXPORT
+=head1 DESCRIPTION
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+Enable C<connect_info> to be hash with several named connections defined inside,
+and choose active one with C<active_connection>. Also, set C<AutoCommit> option
+for you to C<1>, if you don't set it yet.
 
-=head1 FUNCTIONS
-
-=head2 function1
+This extension will do something only if you set C<active_connection>, otherwise
+it just do nothing, like it was not used at all.
 
 =cut
 
-sub function1 {
-}
+subtype SeveralConnectInfo, as ConnectInfo, where { exists $_->{dsn} || exists $_->{dbh_maker} };
 
-=head2 function2
+coerce SeveralConnectInfo, from HashRef, via {
+    my $connect_info = $_;
 
-=cut
+    if ( exists $_->{active_connection} ) {
+        $connect_info = $_->{ $_->{active_connection} };
+        $connect_info = {%$connect_info};                  # make copy
+        $connect_info->{AutoCommit} = 1 unless exists( $connect_info->{AutoCommit} );
+    }
 
-sub function2 {
-}
+    return $connect_info;
+};
+
+has '+connect_info' => ( isa => SeveralConnectInfo, coerce => 1 );
+
+=head1 TODO
+
+Write tests.
+
+=head1 REPOSITORY
+
+Project is hosted at GitHub:
+
+    git://github.com/cub-uanic/c-t-m-dbic-schema-connectinfo-several.git
+
+=head1 SEE ALSO
+
+L<Catalyst::Model::DBIC::Schema>, L<DBIx::Class>, L<Catalyst>
 
 =head1 AUTHOR
 
 Oleg Kostyuk, C<< <cub at cpan.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-catalyst-traitfor-model-dbic-schema-connectinfo-several at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several/>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
 
 =head1 COPYRIGHT & LICENSE
 
@@ -104,7 +107,7 @@ by the Free Software Foundation; or the Artistic License.
 
 See http://dev.perl.org/licenses/ for more information.
 
-
 =cut
 
-1; # End of Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several
+1;    # End of Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several
+

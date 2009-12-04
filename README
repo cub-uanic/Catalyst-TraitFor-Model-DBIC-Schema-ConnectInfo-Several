@@ -1,55 +1,73 @@
-Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several
+NAME
+    Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several - support
+    for several "connect_info" entries.
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+SYNOPSIS
+        package MyApp::Model::DB;
 
-A README file is required for CPAN modules since CPAN extracts the README
-file from a module distribution so that people browsing the archive
-can use it to get an idea of the module's uses. It is usually a good idea
-to provide version information here so that people can decide whether
-fixes for the module are worth downloading.
+        use Moose;
+        use namespace::autoclean;
+        extends 'Catalyst::Model::DBIC::Schema';
 
+        __PACKAGE__->config(
+            {
+                traits            => ['ConnectInfo::Several'],
+                schema_class      => 'MyApp::Schema',
+                connect_info      => {
+                    active_connection => 'mysql_devel',
+                    mysql_devel       => [ 'dbi:mysql:db_devel', 'user1', 'pass1' ],
+                    mysql_production  => [ 'dbi:mysql:db_prod',  'user2', 'pass2' ],
+                },
+            }
+        );
 
-INSTALLATION
+        #
+        # or in application config
+        #
+        <Model::DB>
+            <connect_info>
+                active_connection   mysql_devel
+                <mysql_devel>
+                    dns             dbi:mysql:db_devel
+                    user            user1
+                    password        pass1
+                </mysql_devel>
+                <mysql_prod>
+                    dns             dbi:mysql:db_prod
+                    user            user2
+                    password        pass2
+                </mysql_prod>
+            </connect_info>
+        </Model::DB>
 
-To install this module, run the following commands:
+DESCRIPTION
+    Enable "connect_info" to be hash with several named connections defined
+    inside, and choose active one with "active_connection". Also, set
+    "AutoCommit" option for you to 1, if you don't set it yet.
 
-	perl Makefile.PL
-	make
-	make test
-	make install
+    This extension will do something only if you set "active_connection",
+    otherwise it just do nothing, like it was not used at all.
 
-SUPPORT AND DOCUMENTATION
+TODO
+    Write tests.
 
-After installing, you can find documentation for this module with the
-perldoc command.
+REPOSITORY
+    Project is hosted at GitHub:
 
-    perldoc Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several
+        git://github.com/cub-uanic/c-t-m-dbic-schema-connectinfo-several.git
 
-You can also look for information at:
+SEE ALSO
+    Catalyst::Model::DBIC::Schema, DBIx::Class, Catalyst
 
-    RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several
+AUTHOR
+    Oleg Kostyuk, "<cub at cpan.org>"
 
-    AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several
+COPYRIGHT & LICENSE
+    Copyright 2009 Oleg Kostyuk.
 
-    CPAN Ratings
-        http://cpanratings.perl.org/d/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several
+    This program is free software; you can redistribute it and/or modify it
+    under the terms of either: the GNU General Public License as published
+    by the Free Software Foundation; or the Artistic License.
 
-    Search CPAN
-        http://search.cpan.org/dist/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several/
-
-
-COPYRIGHT AND LICENCE
-
-Copyright (C) 2009 Oleg Kostyuk
-
-This program is free software; you can redistribute it and/or modify it
-under the terms of either: the GNU General Public License as published
-by the Free Software Foundation; or the Artistic License.
-
-See http://dev.perl.org/licenses/ for more information.
+    See http://dev.perl.org/licenses/ for more information.
 
