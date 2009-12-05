@@ -107,6 +107,7 @@ L<Catalyst::Model::DBIC::Schema>, L<DBIx::Class>, L<Catalyst>
 =item * Report bugs or feature requests
 
 L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several>
+
 L<http://www.assembla.com/spaces/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several/tickets>
 
 =item * Git repository
