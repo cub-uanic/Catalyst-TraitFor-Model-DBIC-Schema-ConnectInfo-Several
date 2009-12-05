@@ -2,6 +2,9 @@ NAME
     Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several - support
     for several "connect_info" entries.
 
+VERSION
+        Version is 0.3
+
 SYNOPSIS
         package MyApp::Model::DB;
 
@@ -63,10 +66,10 @@ SEE ALSO
     Catalyst::Model::DBIC::Schema, DBIx::Class, Catalyst
 
 AUTHOR
-    Oleg Kostyuk, "<cub at cpan.org>"
+    Oleg Kostyuk, "<cub#cpan.org>"
 
 CONTRIBUTORS
-    Matt S. Trout "<mst@shadowcatsystems.co.uk>"
+    Matt S. Trout "<mst#shadowcatsystems.co.uk>"
 
 COPYRIGHT & LICENSE
     Copyright 2009 Oleg Kostyuk.

@@ -1,5 +1,8 @@
 Revision history for Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several
 
+0.03    2009-12-05 18:57:42
+        Make emails less readable
+
 0.02    2009-12-05 18:49:04
         Update with MST recommendations
 

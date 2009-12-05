@@ -4,12 +4,16 @@ use namespace::autoclean;
 use Moose::Role;
 use MooseX::Types::Moose qw/ Str HashRef /;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 NAME
 
 Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several - support
 for several C<connect_info> entries.
+
+=head1 VERSION
+
+    Version is 0.3
 
 =head1 SYNOPSIS
 
@@ -104,11 +108,11 @@ L<Catalyst::Model::DBIC::Schema>, L<DBIx::Class>, L<Catalyst>
 
 =head1 AUTHOR
 
-Oleg Kostyuk, C<< <cub at cpan.org> >>
+Oleg Kostyuk, C<< <cub#cpan.org> >>
 
 =head1 CONTRIBUTORS
 
-Matt S. Trout C<< <mst@shadowcatsystems.co.uk> >>
+Matt S. Trout C<< <mst#shadowcatsystems.co.uk> >>
 
 =head1 COPYRIGHT & LICENSE
 
