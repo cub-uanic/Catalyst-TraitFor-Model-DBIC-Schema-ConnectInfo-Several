@@ -2,11 +2,9 @@ package Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several;
 
 use namespace::autoclean;
 use Moose::Role;
-use Catalyst::Model::DBIC::Schema::Types qw/ ConnectInfo /;
-use MooseX::Types -declare => [qw/ SeveralConnectInfo /];
-use MooseX::Types::Moose qw/ HashRef /;
+use MooseX::Types::Moose qw/ Str HashRef /;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 NAME
 
@@ -25,8 +23,8 @@ for several C<connect_info> entries.
         {
             traits            => ['ConnectInfo::Several'],
             schema_class      => 'MyApp::Schema',
-            connect_info      => {
-                active_connection => 'mysql_devel',
+            active_connection => 'mysql_devel',
+            connection      => {
                 mysql_devel       => [ 'dbi:mysql:db_devel', 'user1', 'pass1' ],
                 mysql_production  => [ 'dbi:mysql:db_prod',  'user2', 'pass2' ],
             },
@@ -37,8 +35,9 @@ for several C<connect_info> entries.
     # or in application config
     #
     <Model::DB>
-        <connect_info>
-            active_connection   mysql_devel
+        traits                  ConnectInfo::Several
+        active_connection       mysql_devel
+        <connection>
             <mysql_devel>
                 dns             dbi:mysql:db_devel
                 user            user1
@@ -49,35 +48,45 @@ for several C<connect_info> entries.
                 user            user2
                 password        pass2
             </mysql_prod>
-        </connect_info>
+        </connection>
     </Model::DB>
 
 =head1 DESCRIPTION
 
-Enable C<connect_info> to be hash with several named connections defined inside,
-and choose active one with C<active_connection>. Also, set C<AutoCommit> option
-for you to C<1>, if you don't set it yet.
+You can define several named connections in C<connection> hash, and selectr
+which one should be used currently with C<active_connection>. You shouldn't
+define C<connect_info>, it will be set for you, depending on what you set
+in C<active_connection> and C<connection>.
+Also, set C<AutoCommit> option for you to C<1>, if you don't set it yet.
 
-This extension will do something only if you set C<active_connection>, otherwise
+This trait will do something only if you set C<active_connection>, otherwise
 it just do nothing, like it was not used at all.
 
 =cut
 
-subtype SeveralConnectInfo, as ConnectInfo, where { exists $_->{dsn} || exists $_->{dbh_maker} };
+has 'active_connection' => (
+    is  => 'ro',
+    isa => 'Str',
+);
 
-coerce SeveralConnectInfo, from HashRef, via {
-    my $connect_info = $_;
+has 'connection' => (
+    is  => 'ro',
+    isa => 'HashRef',
+);
 
-    if ( exists $_->{active_connection} ) {
-        $connect_info = $_->{ $_->{active_connection} };
-        $connect_info = {%$connect_info};                  # make copy
-        $connect_info->{AutoCommit} = 1 unless exists( $connect_info->{AutoCommit} );
+around 'BUILDARGS' => sub {
+    my $orig  = shift;
+    my $class = shift;
+
+    my $new = $class->$orig(@_);
+
+    if ( exists( $new->{active_connection} ) && exists( $new->{connection}->{ $new->{active_connection} } ) ) {
+        $new->{connect_info} = $new->{connection}->{ $new->{active_connection} };
+        $new->{connect_info}->{AutoCommit} = 1 unless exists( $new->{connect_info}->{AutoCommit} );
     }
 
-    return $connect_info;
+    return $new;
 };
-
-has '+connect_info' => ( isa => SeveralConnectInfo, coerce => 1 );
 
 =head1 TODO
 
@@ -96,6 +105,10 @@ L<Catalyst::Model::DBIC::Schema>, L<DBIx::Class>, L<Catalyst>
 =head1 AUTHOR
 
 Oleg Kostyuk, C<< <cub at cpan.org> >>
+
+=head1 CONTRIBUTORS
+
+Matt S. Trout C<< <mst@shadowcatsystems.co.uk> >>
 
 =head1 COPYRIGHT & LICENSE
 

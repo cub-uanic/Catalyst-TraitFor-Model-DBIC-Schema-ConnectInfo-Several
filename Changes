@@ -1,5 +1,8 @@
 Revision history for Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several
 
+0.02    2009-12-05 18:49:04
+        Update with MST recommendations
+
 0.01    2009-12-04 13:20:09
         First version, released on an unsuspecting world :)
 

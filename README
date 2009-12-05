@@ -13,8 +13,8 @@ SYNOPSIS
             {
                 traits            => ['ConnectInfo::Several'],
                 schema_class      => 'MyApp::Schema',
-                connect_info      => {
-                    active_connection => 'mysql_devel',
+                active_connection => 'mysql_devel',
+                connection      => {
                     mysql_devel       => [ 'dbi:mysql:db_devel', 'user1', 'pass1' ],
                     mysql_production  => [ 'dbi:mysql:db_prod',  'user2', 'pass2' ],
                 },
@@ -25,8 +25,9 @@ SYNOPSIS
         # or in application config
         #
         <Model::DB>
-            <connect_info>
-                active_connection   mysql_devel
+            traits                  ConnectInfo::Several
+            active_connection       mysql_devel
+            <connection>
                 <mysql_devel>
                     dns             dbi:mysql:db_devel
                     user            user1
@@ -37,15 +38,17 @@ SYNOPSIS
                     user            user2
                     password        pass2
                 </mysql_prod>
-            </connect_info>
+            </connection>
         </Model::DB>
 
 DESCRIPTION
-    Enable "connect_info" to be hash with several named connections defined
-    inside, and choose active one with "active_connection". Also, set
+    You can define several named connections in "connection" hash, and
+    selectr which one should be used currently with "active_connection". You
+    shouldn't define "connect_info", it will be set for you, depending on
+    what you set in "active_connection" and "connection". Also, set
     "AutoCommit" option for you to 1, if you don't set it yet.
 
-    This extension will do something only if you set "active_connection",
+    This trait will do something only if you set "active_connection",
     otherwise it just do nothing, like it was not used at all.
 
 TODO
@@ -61,6 +64,9 @@ SEE ALSO
 
 AUTHOR
     Oleg Kostyuk, "<cub at cpan.org>"
+
+CONTRIBUTORS
+    Matt S. Trout "<mst@shadowcatsystems.co.uk>"
 
 COPYRIGHT & LICENSE
     Copyright 2009 Oleg Kostyuk.
