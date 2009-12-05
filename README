@@ -3,7 +3,7 @@ NAME
     for several "connect_info" entries.
 
 VERSION
-        Version is 0.3
+        Version is 0.04
 
 SYNOPSIS
         package MyApp::Model::DB;
@@ -57,18 +57,27 @@ DESCRIPTION
 TODO
     Write tests.
 
-REPOSITORY
-    Project is hosted at GitHub:
-
-        git://github.com/cub-uanic/c-t-m-dbic-schema-connectinfo-several.git
-
 SEE ALSO
     Catalyst::Model::DBIC::Schema, DBIx::Class, Catalyst
+
+SUPPORT
+    *   Report bugs or feature requests
+
+        <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-TraitFor-Mo
+        del-DBIC-Schema-ConnectInfo-Several>
+        <http://www.assembla.com/spaces/Catalyst-TraitFor-Model-DBIC-Schema-
+        ConnectInfo-Several/tickets>
+
+    *   Git repository
+
+        git clone
+        git://git.assembla.com/Catalyst-TraitFor-Model-DBIC-Schema-ConnectIn
+        fo-Several.git
 
 AUTHOR
     Oleg Kostyuk, "<cub#cpan.org>"
 
-CONTRIBUTORS
+ACKNOWLEDGEMENTS
     Matt S. Trout "<mst#shadowcatsystems.co.uk>"
 
 COPYRIGHT & LICENSE

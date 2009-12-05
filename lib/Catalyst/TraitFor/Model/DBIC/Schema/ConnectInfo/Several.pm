@@ -4,7 +4,7 @@ use namespace::autoclean;
 use Moose::Role;
 use MooseX::Types::Moose qw/ Str HashRef /;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 =head1 NAME
 
@@ -13,7 +13,7 @@ for several C<connect_info> entries.
 
 =head1 VERSION
 
-    Version is 0.3
+    Version is 0.04
 
 =head1 SYNOPSIS
 
@@ -96,21 +96,30 @@ around 'BUILDARGS' => sub {
 
 Write tests.
 
-=head1 REPOSITORY
-
-Project is hosted at GitHub:
-
-    git://github.com/cub-uanic/c-t-m-dbic-schema-connectinfo-several.git
-
 =head1 SEE ALSO
 
 L<Catalyst::Model::DBIC::Schema>, L<DBIx::Class>, L<Catalyst>
+
+=head1 SUPPORT
+
+=over 4
+
+=item * Report bugs or feature requests
+
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several>
+L<http://www.assembla.com/spaces/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several/tickets>
+
+=item * Git repository
+
+git clone git://git.assembla.com/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several.git
+
+=back
 
 =head1 AUTHOR
 
 Oleg Kostyuk, C<< <cub#cpan.org> >>
 
-=head1 CONTRIBUTORS
+=head1 ACKNOWLEDGEMENTS
 
 Matt S. Trout C<< <mst#shadowcatsystems.co.uk> >>
 
