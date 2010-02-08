@@ -10,7 +10,7 @@ name 'Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several';
 all_from 'lib/Catalyst/TraitFor/Model/DBIC/Schema/ConnectInfo/Several.pm';
 author q{Oleg Kostyuk <cub@cpan.org>};
 
-requires 'Catalyst' => '5.80';
+requires 'Catalyst'                      => '5.80';
 requires 'Catalyst::Model::DBIC::Schema' => '0.31';
 requires 'Moose';
 requires 'MooseX::Types';
@@ -21,10 +21,10 @@ test_requires 'Test::More';
 
 author_requires 'Test::EOL' => '0.3';
 author_requires 'Test::NoTabs';
-author_requires 'Test::Pod' => '1.14';
+author_requires 'Test::Pod'           => '1.14';
 author_requires 'Test::Pod::Coverage' => '1.08';
 
-resources repository => 'http://github.com/cub-uanic/c-t-m-dbic-schema-connectinfo-several/';
+resources repository => 'git://git.assembla.com/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several.git';
 
 tests 't/*.t';
 author_tests 't/author';

@@ -3,7 +3,7 @@ NAME
     for several "connect_info" entries.
 
 VERSION
-        Version is 0.04
+        Version is 0.05
 
 SYNOPSIS
         package MyApp::Model::DB;

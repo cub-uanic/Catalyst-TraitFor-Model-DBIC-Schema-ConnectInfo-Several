@@ -4,7 +4,7 @@ use namespace::autoclean;
 use Moose::Role;
 use MooseX::Types::Moose qw/ Str HashRef /;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 NAME
 
@@ -13,7 +13,7 @@ for several C<connect_info> entries.
 
 =head1 VERSION
 
-    Version is 0.04
+    Version is 0.05
 
 =head1 SYNOPSIS
 

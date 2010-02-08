@@ -1,5 +1,8 @@
 Revision history for Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several
 
+0.05    2010-02-09 00:37:56
+        Fix: repository path in Makefile.PL was incorrect
+
 0.04    2009-12-05 19:56:51
         Switch to Assembla.com repository
 
