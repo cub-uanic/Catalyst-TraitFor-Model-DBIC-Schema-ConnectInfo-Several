@@ -1,5 +1,9 @@
 Revision history for Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several
 
+0.06    2010-06-19 23:38:11
+        Switch repository back to Github
+        Small optiomizations
+
 0.05    2010-02-09 00:37:56
         Fix: repository path in Makefile.PL was incorrect
 

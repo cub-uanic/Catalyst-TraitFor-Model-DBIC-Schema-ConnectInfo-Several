@@ -3,7 +3,7 @@ package Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several;
 use namespace::autoclean;
 use Moose::Role;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 =head1 NAME
 
@@ -12,7 +12,7 @@ for several C<connect_info> entries.
 
 =head1 VERSION
 
-    Version is 0.05
+    Version is 0.06
 
 =head1 SYNOPSIS
 
@@ -85,23 +85,13 @@ around 'BUILDARGS' => sub {
 
 Write tests.
 
+=head1 GIT REPOSITORY
+
+    git clone git://github.com/cub-uanic/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several.git
+
 =head1 SEE ALSO
 
 L<Catalyst::Model::DBIC::Schema>, L<DBIx::Class>, L<Catalyst>
-
-=head1 SUPPORT
-
-=over 4
-
-=item * Report bugs or feature requests
-
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several>
-
-=item * Git repository
-
-git clone git://github.com/cub-uanic/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several.git
-
-=back
 
 =head1 AUTHOR
 
@@ -113,7 +103,7 @@ Matt S. Trout C<< <mst#shadowcatsystems.co.uk> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2009 Oleg Kostyuk.
+Copyright by Oleg Kostyuk.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
