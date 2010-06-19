@@ -28,7 +28,7 @@ for several C<connect_info> entries.
             traits            => ['ConnectInfo::Several'],
             schema_class      => 'MyApp::Schema',
             active_connection => 'mysql_devel',
-            connection      => {
+            connections       => {
                 mysql_devel       => [ 'dbi:mysql:db_devel', 'user1', 'pass1' ],
                 mysql_production  => [ 'dbi:mysql:db_prod',  'user2', 'pass2' ],
             },
@@ -41,7 +41,7 @@ for several C<connect_info> entries.
     <Model::DB>
         traits                  ConnectInfo::Several
         active_connection       mysql_devel
-        <connection>
+        <connections>
             <mysql_devel>
                 dns             dbi:mysql:db_devel
                 user            user1
@@ -52,16 +52,15 @@ for several C<connect_info> entries.
                 user            user2
                 password        pass2
             </mysql_prod>
-        </connection>
+        </connections>
     </Model::DB>
 
 =head1 DESCRIPTION
 
-You can define several named connections in C<connection> hash, and selectr
-which one should be used currently with C<active_connection>. You shouldn't
-define C<connect_info>, it will be set for you, depending on what you set
-in C<active_connection> and C<connection>.
-Also, set C<AutoCommit> option for you to C<1>, if you don't set it yet.
+You can define several connections in C<connections> hash, and select
+which one should be used currently via C<active_connection>. You shouldn't
+define C<connect_info> - it will be set for you, depending on what you set
+in C<active_connection> and C<connections>.
 
 This trait will do something only if you set C<active_connection>, otherwise
 it just do nothing, like it was not used at all.
@@ -73,7 +72,7 @@ has 'active_connection' => (
     isa => 'Str',
 );
 
-has 'connection' => (
+has 'connections' => (
     is  => 'ro',
     isa => 'HashRef',
 );
@@ -84,9 +83,8 @@ around 'BUILDARGS' => sub {
 
     my $new = $class->$orig(@_);
 
-    if ( exists( $new->{active_connection} ) && exists( $new->{connection}->{ $new->{active_connection} } ) ) {
-        $new->{connect_info} = $new->{connection}->{ $new->{active_connection} };
-        $new->{connect_info}->{AutoCommit} = 1 unless exists( $new->{connect_info}->{AutoCommit} );
+    if ( exists( $new->{active_connection} ) && exists( $new->{connections}->{ $new->{active_connection} } ) ) {
+        $new->{connect_info} = $new->{connections}->{ $new->{active_connection} };
     }
 
     return $new;
