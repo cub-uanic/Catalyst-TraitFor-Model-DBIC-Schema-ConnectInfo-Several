@@ -97,11 +97,9 @@ L<Catalyst::Model::DBIC::Schema>, L<DBIx::Class>, L<Catalyst>
 
 L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several>
 
-L<http://www.assembla.com/spaces/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several/tickets>
-
 =item * Git repository
 
-git clone git://git.assembla.com/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several.git
+git clone git://github.com/cub-uanic/Catalyst-TraitFor-Model-DBIC-Schema-ConnectInfo-Several.git
 
 =back
 
