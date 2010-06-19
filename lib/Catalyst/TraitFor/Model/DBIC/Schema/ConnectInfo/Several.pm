@@ -2,7 +2,6 @@ package Catalyst::TraitFor::Model::DBIC::Schema::ConnectInfo::Several;
 
 use namespace::autoclean;
 use Moose::Role;
-use MooseX::Types::Moose qw/ Str HashRef /;
 
 our $VERSION = '0.05';
 
@@ -67,16 +66,6 @@ it just do nothing, like it was not used at all.
 
 =cut
 
-has 'active_connection' => (
-    is  => 'ro',
-    isa => 'Str',
-);
-
-has 'connections' => (
-    is  => 'ro',
-    isa => 'HashRef',
-);
-
 around 'BUILDARGS' => sub {
     my $orig  = shift;
     my $class = shift;
@@ -85,6 +74,8 @@ around 'BUILDARGS' => sub {
 
     if ( exists( $new->{active_connection} ) && exists( $new->{connections}->{ $new->{active_connection} } ) ) {
         $new->{connect_info} = $new->{connections}->{ $new->{active_connection} };
+        delete $new->{active_connection};
+        delete $new->{connections};
     }
 
     return $new;
